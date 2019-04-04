@@ -16,7 +16,9 @@ public class Booking {
     @Column(name = "date")
     private String date;
 
+
     @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", nullable = false)
     private List<Customer> customers;
     private List<Course> courses;
 
@@ -24,6 +26,14 @@ public class Booking {
         this.date = date;
         this.customers = new ArrayList<>();
         this.courses = new ArrayList<>();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Booking() {

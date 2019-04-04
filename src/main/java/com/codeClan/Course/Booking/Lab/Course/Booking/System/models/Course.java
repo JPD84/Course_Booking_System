@@ -1,6 +1,9 @@
 package com.codeClan.Course.Booking.Lab.Course.Booking.System.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,17 +24,27 @@ public class Course {
     @Column(name = "starRating")
     private int starRating;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
     private List<Course>courses;
 
     public Course(String name, String location, int starRating, List<Course> courses) {
         this.name = name;
         this.location = location;
         this.starRating = starRating;
-        this.courses = courses;
+        this.courses = new ArrayList<>();
     }
 
     public Course() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

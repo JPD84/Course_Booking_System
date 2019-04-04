@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.javafx.beans.IDProperty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,7 @@ public class Customer {
     private int age;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customers", fetch = FetchType.LAZY)
     private List<Customer>customers;
 
@@ -31,10 +33,19 @@ public class Customer {
         this.name = name;
         this.town = town;
         this.age = age;
+        this.customers = new ArrayList<>();
     }
 
     public Customer(){
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
